@@ -16,6 +16,6 @@ file="/sequenze.txt"
 old_sequenze=$(cat "$file")
 
 if [ "$old_sequenze" != "$SEQ" ]; then
-	wget -o /dev/null -O /dev/stdout http://planet.openstreetmap.org/replication/minute/$A/$B/$C.osc.gz|gunzip -c|python3 producer.py
+	wget -o /dev/null -O /dev/stdout http://planet.openstreetmap.org/replication/minute/$A/$B/$C.osc.gz|gunzip -c|python3 /opt/OSMstream/producer.py
 fi
 echo $SEQ > $file
