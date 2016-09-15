@@ -1,10 +1,9 @@
 # OSMstream
 The repository provides a docker container which collects the minutely diffs (change sets) from OpenStreetMap.
-The diffs are small compressed xml files in OsmChange format.
-For further use we convert them into JSON format and publish them with apache kafka.
+The diffs are small compressed xml files in OsmChange format. For further use we convert them into JSON format and publish them with apache kafka.
 After that the data is ready for a streaming database of your choice.
 
-![Overview](imgs/streaming_db.png)
+![Overview](img/streaming_db.png)
 
 ##Installation
 Pull the repository, build the docker container and run the container. 
