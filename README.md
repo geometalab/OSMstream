@@ -32,3 +32,4 @@ The idea is now to test your streaming database with the OSM diff data provided 
 
 ##Links
 - http://wiki.openstreetmap.org/wiki/Planet.osm/diffs
+- http://wiki.openstreetmap.org/wiki/OsmChange
