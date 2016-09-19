@@ -1,6 +1,6 @@
 #! /bin/bash
 
-SEQ=`wget -o /dev/null -O /dev/stdout http://planet.openstreetmap.org/replication/minute/state.txt|grep sequenceNumber|cut -d '=' -f 2`
+SEQ=$(curl https://overpass-api.de/api/augmented_diff_status)
 
 MM=$[$SEQ/1000000]
 KK=$[$SEQ-$MM*1000000]
@@ -16,7 +16,5 @@ file="/sequence.txt"
 old_sequence=$(cat "$file")
 
 if [ "$old_sequence" != "$SEQ" ]; then
-
-	wget -o /dev/null -O /dev/stdout http://planet.openstreetmap.org/replication/minute/$A/$B/$C.osc.gz|gunzip -c|/opt/OSMstream/producer.py
+    curl https://overpass-api.de/api/augmented_diff | /opt/OSMstream/producer.py
 fi
-echo $SEQ > $file

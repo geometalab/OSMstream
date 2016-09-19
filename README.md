@@ -1,6 +1,6 @@
 # OSMstream
-The repository provides a docker container which collects the minutely diffs (change sets) from OpenStreetMap.
-The diffs are small compressed xml files in OsmChange format. For further use we convert them into JSON format and publish them with apache kafka.
+The repository provides a docker container which collects the Augmented diffs (change sets) from OpenStreetMap.
+The diffs are provided in XML format and can be accessed over the overpass API. For further use we convert them into JSON format and publish them with apache kafka.
 After that the data is ready for a streaming database of your choice.
 
 ![Overview](img/streaming_db.png)
@@ -31,5 +31,6 @@ The idea is now to test your streaming database with the OSM diff data provided 
 - Topic:    osm
 
 ##Links
+- http://wiki.openstreetmap.org/wiki/Overpass_API/Augmented_Diffs
 - http://wiki.openstreetmap.org/wiki/Planet.osm/diffs
 - http://wiki.openstreetmap.org/wiki/OsmChange
