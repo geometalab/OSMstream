@@ -17,7 +17,7 @@ COPY src/entrypoint.sh /opt/OSMstream/
 ENTRYPOINT ["./opt/OSMstream/entrypoint.sh"]
 
 RUN apt-get update \
-    && apt-get install -y zookeeper vim python3-pip python3-dev python3 cron supervisor\
+    && apt-get install -y curl zookeeper vim python3-pip python3-dev python3 cron supervisor\
     && pip3 install --upgrade pip \
     && pip3 install xmljson \
     && pip3 install kafka-python \
