@@ -12,7 +12,7 @@ Pull the repository, build the docker container and run the container.
 ```shell
 cd OSMstream
 docker build -t osmstream .
-docker run -d --name osmstream -p 2181:2181 osmstream
+docker run -d --name osmstream -v .:/maped/ -p 2181:2181 -p 8080:8080 osmstream
 ```
 
 If you'd like to verify if there is something going on, use the following command.

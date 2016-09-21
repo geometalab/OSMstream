@@ -25,3 +25,6 @@ RUN apt-get update \
     && tar xfz /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -C /opt \
     && (crontab -l 2>/dev/null; echo "*/1 * * * *  /opt/OSMstream/cron_diff.sh") | crontab - \
     && chmod +x /opt/OSMstream/entrypoint.sh \
+    && cd /opt \
+    && wget -q http://mirror.easyname.ch/apache/storm/apache-storm-1.0.2/apache-storm-1.0.2.tar.gz \
+    && tar xfz apache-storm-1.0.2.tar.gz \
