@@ -6,13 +6,12 @@ After that the data is ready for a streaming database of your choice.
 ![Overview](img/streaming_db.png)
 
 ##Installation
-Pull the repository, build the docker container and run the container. 
+Pull the repository, build the docker container and run the container.
 
 ###Docker
 ```shell
 cd OSMstream
-docker build -t osmstream .
-docker run -d --name osmstream -p 2181:2181 osmstream
+docker run -d --name osmstream -p 2181:2181 geometalab/osmstream
 ```
 
 If you'd like to verify if there is something going on, use the following command.
@@ -34,3 +33,19 @@ The idea is now to test your streaming database with the OSM diff data provided 
 - http://wiki.openstreetmap.org/wiki/Overpass_API/Augmented_Diffs
 - http://wiki.openstreetmap.org/wiki/Planet.osm/diffs
 - http://wiki.openstreetmap.org/wiki/OsmChange
+
+## Development
+
+Update and develop the new version, when satisfied, push to Dockerhub:
+
+```
+docker build -t geometalab/osmstream .
+docker push geometalab/osmstream
+```
+
+To tag a specific version, for example having a clustered version of the image:
+
+```
+docker build -t geometalab/osmstream:clustered .
+docker push geometalab/osmstream:clustered
+```
