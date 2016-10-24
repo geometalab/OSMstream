@@ -23,6 +23,8 @@ RUN apt-get update \
     && pip3 install --upgrade pip \
     && pip3 install xmljson \
     && pip3 install kafka-python \
+    && pip3 install beautifulsoup4 \
+    && pip3 install epub \
     && wget -q http://apache.mirrors.spacedump.net/kafka/"$KAFKA_VERSION"/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -O /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz \
     && tar xfz /tmp/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION".tgz -C /opt \
     && (crontab -l 2>/dev/null; echo "*/1 * * * *  /opt/OSMstream/cron_diff.sh") | crontab - \
