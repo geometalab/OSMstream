@@ -19,7 +19,7 @@ def run(args):
         for t in texts:
             text += t + " "
     for i in range(1, args.rounds + 1):
-        producer.send('benchmark', i * text)
+        producer.send('benchmark', str.encode(i * text))
         producer.flush()
 
 
