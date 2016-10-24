@@ -31,7 +31,7 @@ The idea is now to test your streaming database with the OSM diff data provided 
 - Topic:    osm, benchmark
 
 ###Benchmak
-Benchmarking is a very difficult topic and strongly depends on the various parameters like the underlying hardware.
+Benchmarking is a very difficult topic and strongly depends on various parameters like the underlying hardware.
 So we decide to make this as hardware independent as possible. The idea is to produce kafka messages with "a lot of text" and for the consumer the goal is to count the words of the text and track the used processing time.
 The we repeat this process with the double text length and so on. After a few iteration you can relate the processing time and the text length.
 
