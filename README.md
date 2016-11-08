@@ -70,10 +70,15 @@ The small messages are inspired by MQTT.
 This messages are only generated samples for testing and look like the following.
 
 0 weather 5 False 83 True
+
 1 computer 2 True 82 False
+
 2 weather 9 False 6 False
+
 3 icebox 3 True 85 True
+
 4 door 6 False 48 True
+
 5 door 5 True 7 False
 
 
