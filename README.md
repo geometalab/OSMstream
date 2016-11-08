@@ -64,7 +64,7 @@ python3 /opt/OSMstream/benchmark.py -n 1000
 
 ###Small Messages
 The small messages are inspired by MQTT.
-![MQTT](img/publish_packet.png)
+![MQTT](img/publish_packet.png)&nbsp;
 
 This messages are only generated samples for testing and look like the following.
 
