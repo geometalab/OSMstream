@@ -23,26 +23,62 @@ docker exec -it osmstream bash
 
 
 ##Usage
-The idea is now to test your streaming database with the OSM diff data provided by kafka.
+To test your streaming database with the OSM diff data provided by kafka.
 
 ###Kafka settings
 - Host:     localhost
 - Port:     2181
 - Topic:    osm, benchmark
 
-###Benchmak
+##Benchmak
 Benchmarking is a very difficult topic and strongly depends on various parameters like the underlying hardware.
-So we decide to make this as hardware independent as possible. The idea is to produce kafka messages with "a lot of text" and for the consumer the goal is to count the words of the text and track the used processing time.
-The we repeat this process with the double text length and so on. After a few iteration you can relate the processing time and the text length.
+Thus we decide to make this as hardware independent as possible. 
 
-Start the message producer: 
+The idea is to produce a lot of small kafka message, like IoT does, and to count all the words of them. 
+Then repeat this process and relate the number of processed messages with the time spent to count the words of them.
+
+###Setup
+
+The "benchmark.py" script produces the messages as a kafka producer and can be used like in the next box. (The parameter IP and Port are optional)
+
+```shell
+usage: benchmark.py [-h] -n NUMBER_OF_MESSAGES [-i IP] [-p PORT]
+
+Produce input for stream benchmarks.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -n NUMBER_OF_MESSAGES, --number_of_messages NUMBER_OF_MESSAGES
+                        Number of messages to produce.
+  -i IP, --ip IP        IP address of Kafka. (Default is localhost)
+  -p PORT, --port PORT  Port of Kafka. (Default is 9092)
+```
+
+
+Example usage: 
 ```shell
 docker exec -it osmstream bash
-python3 /opt/OSMstream/benchmark.py -r 10
+python3 /opt/OSMstream/benchmark.py -n 1000
 ```
-(the parameter -r is the number of produced messages)
+
+
+###Small Messages
+The small messages are inspired by MQTT.
+![MQTT](img/publish_packet.png)
+
+This messages are only generated samples for testing and look like the following.
+
+0 weather 5 False 83 True
+1 computer 2 True 82 False
+2 weather 9 False 6 False
+3 icebox 3 True 85 True
+4 door 6 False 48 True
+5 door 5 True 7 False
+
+
 
 ##Links
 - http://wiki.openstreetmap.org/wiki/Overpass_API/Augmented_Diffs
 - http://wiki.openstreetmap.org/wiki/Planet.osm/diffs
 - http://wiki.openstreetmap.org/wiki/OsmChange
+- https://en.wikipedia.org/wiki/MQTT

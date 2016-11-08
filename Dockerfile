@@ -14,7 +14,7 @@ COPY src/cron_diff.sh /opt/OSMstream/
 COPY src/producer.py /opt/OSMstream/
 COPY src/entrypoint.sh /opt/OSMstream/
 COPY src/benchmark.py /opt/OSMstream/
-COPY src/how-to-make-mistakes-in-python.epub /opt/OSMstream/
+COPY augmented_diffs /opt/OSMstream/
 
 ENTRYPOINT ["./opt/OSMstream/entrypoint.sh"]
 
