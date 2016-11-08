@@ -24,11 +24,22 @@ docker exec -it osmstream bash
 
 ##Usage
 To test your streaming database with the OSM diff data provided by kafka.
+This diffs could be relatively large messages for kafka, thus we recommend to set the "fetchSizeBytes" of your stream processing technology to something about 100'000'000.
 
 ###Kafka settings
-- Host:     localhost
+- Host:     localhost, or docker0 ip of container
 - Port:     2181, 9092
 - Topic:    osm, benchmark
+
+###Connect to kafka
+If you connect to the osmstream docker container outside of the container you should use the docker0 IP of this container.
+How to get the IP? Use the following command.
+
+```shell
+docker exec osmstream /bin/sh -c "ip add show eth0 | grep -Eo 'inet \S+'"
+```
+
+This IP Address is also automatically added to the kafka server.properties as advertised.host.name 
 
 ###Test Data
 Because there were several problems with the Augmented diffs, we recorded ten of them.

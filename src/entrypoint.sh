@@ -10,7 +10,6 @@ echo "message.max.bytes=100000000" >> /opt/kafka_2.11-0.10.0.1/config/server.pro
 echo "advertised.port=9092" >> /opt/kafka_2.11-0.10.0.1/config/server.properties
 ip add show eth0 | grep -Eo 'inet \S+' | awk '{split($2,a,"/"); print "advertised.host.name="a[1]}' >> /opt/kafka_2.11-0.10.0.1/config/server.properties
 
-
 service cron start
 /usr/bin/supervisord
 
