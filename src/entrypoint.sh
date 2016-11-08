@@ -3,10 +3,12 @@
 chmod +x /opt/OSMstream/cron_diff.sh
 chmod +x /opt/OSMstream/producer.py
 chmod +x /opt/OSMstream/benchmark.py
-$KAFKA_HOME/bin/zookeeper-server-start.sh -daemon $KAFKA_HOME/config/zookeeper.properties
-$KAFKA_HOME/bin/kafka-server-start.sh -daemon  $KAFKA_HOME/config/server.properties
-$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper $KAFKA_HOST:$KAFKA_PORT --replication-factor 1 --partitions 1 --topic $TOPIC
+chmod +x /opt/OSMstream/test_diff.py
+echo "fetch.message.max.bytes=100000000" >> /opt/kafka_2.11-0.10.0.1/config/consumer.properties
+echo "replica.fetch.max.bytes=100000000" >> /opt/kafka_2.11-0.10.0.1/config/server.properties
+echo "message.max.bytes=100000000" >> /opt/kafka_2.11-0.10.0.1/config/server.properties
+
 service cron start
-supervisord -n
+/usr/bin/supervisord
 
 exec "$@"

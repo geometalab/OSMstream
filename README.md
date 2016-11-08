@@ -12,13 +12,13 @@ Pull the repository, build the docker container and run the container.
 ```shell
 cd OSMstream
 docker build -t osmstream .
-docker run -d --name osmstream -p 2181:2181 osmstream
+docker run -d --name osmstream -p 2181:2181 -p 9092:9092 osmstream
 ```
 
 If you'd like to verify if there is something going on, use the following command.
 ```shell
 docker exec -it osmstream bash
-/opt/kafka_2.11-0.10.0.1/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic osm --from-beginning
+/opt/kafka_2.11-0.10.0.1/bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic osm --from-beginning --consumer.config /opt/kafka_2.11-0.10.0.1/config/consumer.properties
 ```
 
 
@@ -27,8 +27,18 @@ To test your streaming database with the OSM diff data provided by kafka.
 
 ###Kafka settings
 - Host:     localhost
-- Port:     2181
+- Port:     2181, 9092
 - Topic:    osm, benchmark
+
+###Test Data
+Because there were several problems with the Augmented diffs, we recorded ten of them.
+They can published to kafka with the "test_diff.py" script.
+Usage (inside the docker container):
+
+```shell
+python3 /opt/OSMstream/test_diff.py
+```
+
 
 ##Benchmak
 Benchmarking is a very difficult topic and strongly depends on various parameters like the underlying hardware.

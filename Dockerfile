@@ -4,17 +4,19 @@ MAINTAINER Samuel Kurath <skurath@hsr.ch>
 ENV SCALA_VERSION 2.11
 ENV KAFKA_VERSION 0.10.0.1
 ENV KAFKA_HOME /opt/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION"
+ENV KAFKA_HOME /opt/kafka_2.11-0.10.0.1
 ENV TOPIC "osm"
-ENV KAFKA_PORT 2181
 
-EXPOSE $KAFKA_PORT
+EXPOSE 2181 9092
 
 
 COPY src/cron_diff.sh /opt/OSMstream/
 COPY src/producer.py /opt/OSMstream/
 COPY src/entrypoint.sh /opt/OSMstream/
 COPY src/benchmark.py /opt/OSMstream/
-COPY augmented_diffs /opt/OSMstream/
+COPY src/test_diff.py /opt/OSMstream/
+COPY src/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY augmented_diffs /opt/OSMstream/augmented_diffs/
 
 ENTRYPOINT ["./opt/OSMstream/entrypoint.sh"]
 
