@@ -1,38 +1,61 @@
 #!/usr/bin/python3
-import os
-import epub
 import argparse
+from random import choice
 
-from bs4 import BeautifulSoup
 from kafka import KafkaProducer
+
+# https://de.wikipedia.org/wiki/MQTT
+topic_names = ["fridge", "icebox", "refrigerator", "door", "table", "window", "mobile", "computer", "weather"]
+quality_of_service_level = [str(i) for i in range(10)]
+retain_flag = ["False", "True"]
+payload = [str(i) for i in range(100)]
+dub_flag = retain_flag
+
+
+def generate_message(id):
+    return str(id) + " " + choice(topic_names) + " " + choice(quality_of_service_level) + " " + choice(
+        retain_flag) + " " + choice(payload) + " " + choice(dub_flag)
 
 
 def run(args):
-    producer = KafkaProducer(bootstrap_servers='localhost:9092')
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    book = epub.open_epub(dir_path + '/how-to-make-mistakes-in-python.epub')
-    text = ""
-    for item_id, linear in book.opf.spine.itemrefs:
-        item = book.get_item(item_id)
-        soup = BeautifulSoup(book.read_item(item), 'html.parser')
-        texts = soup.findAll(text=True)
-        for t in texts:
-            text += t + " "
-    for i in range(1, args.rounds + 1):
-        producer.send('benchmark', str.encode(i * text))
-        producer.flush()
+    producer = KafkaProducer(bootstrap_servers=args.ip + ':' + str(args.port))
+
+    for i in range(args.number_of_messages):
+        message = generate_message(i)
+        producer.send('benchmark', str.encode(message))
+    producer.flush()
 
 
 def mainfunc():
     parser = argparse.ArgumentParser(description='Produce input for stream benchmarks.', )
     parser.add_argument(
-        '-r',
-        '--rounds',
+        '-n',
+        '--number_of_messages',
         action='store',
-        dest='rounds',
+        dest='number_of_messages',
         type=int,
-        help='How many times should input be produced.',
+        help='Number of messages to produce.',
         required=True
+    )
+
+    parser.add_argument(
+        '-i',
+        '--ip',
+        action='store',
+        dest='ip',
+        type=str,
+        default='localhost',
+        help='IP address of Kafka. (Default is localhost) '
+    )
+
+    parser.add_argument(
+        '-p',
+        '--port',
+        action='store',
+        dest='port',
+        type=int,
+        default='9092',
+        help='Port of Kafka. (Default is 9092) '
     )
 
     args = parser.parse_args()
