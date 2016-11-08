@@ -33,9 +33,9 @@ To test your streaming database with the OSM diff data provided by kafka.
 ###Test Data
 Because there were several problems with the Augmented diffs, we recorded ten of them.
 They can published to kafka with the "test_diff.py" script.
-Usage (inside the docker container):
-
+Usage (inside the docker container and better stop the cron service, which fetches the diffs):
 ```shell
+service cron stop
 python3 /opt/OSMstream/test_diff.py
 ```
 
