@@ -5,10 +5,10 @@ After that the data is ready for a streaming database of your choice.
 
 ![Overview](img/streaming_db.png)
 
-##Installation
-Pull the repository, build the docker container and run the container. 
+## Installation
+Pull the repository, build the docker container and run the container.
 
-###Docker
+### Docker
 ```shell
 cd OSMstream
 docker build -t osmstream .
@@ -22,16 +22,16 @@ docker exec -it osmstream bash
 ```
 
 
-##Usage
+## Usage
 To test your streaming database with the OSM diff data provided by kafka.
 This diffs could be relatively large messages for kafka, thus we recommend to set the "fetchSizeBytes" of your stream processing technology to something about 100'000'000.
 
-###Kafka settings
+### Kafka settings
 - Host:     localhost, or docker0 ip of container
 - Port:     2181, 9092
 - Topic:    osm, benchmark
 
-###Connect to kafka
+### Connect to kafka
 If you connect to the osmstream docker container outside of the container you should use the docker0 IP of this container.
 How to get the IP? Use the following command.
 
@@ -39,9 +39,9 @@ How to get the IP? Use the following command.
 docker exec osmstream /bin/sh -c "ip add show eth0 | grep -Eo 'inet \S+'"
 ```
 
-This IP Address is also automatically added to the kafka server.properties as advertised.host.name 
+This IP Address is also automatically added to the kafka server.properties as advertised.host.name
 
-###Test Data
+### Test Data
 Because there were several problems with the Augmented diffs, we recorded ten of them.
 They can published to kafka with the "test_diff.py" script.
 Usage (inside the docker container and better stop the cron service, which fetches the diffs):
@@ -51,14 +51,14 @@ python3 /opt/OSMstream/test_diff.py
 ```
 
 
-##Benchmak
+## Benchmak
 Benchmarking is a very difficult topic and strongly depends on various parameters like the underlying hardware.
-Thus we decide to make this as hardware independent as possible. 
+Thus we decide to make this as hardware independent as possible.
 
-The idea is to produce a lot of small kafka message, like IoT does, and to count all the words of them. 
+The idea is to produce a lot of small kafka message, like IoT does, and to count all the words of them.
 Then repeat this process and relate the number of processed messages with the time spent to count the words of them.
 
-###Setup
+### Setup
 
 The "benchmark.py" script produces the messages as a kafka producer and can be used like in the next box. (The parameter IP and Port are optional)
 
@@ -76,14 +76,14 @@ optional arguments:
 ```
 
 
-Example usage: 
+Example usage:
 ```shell
 docker exec -it osmstream bash
 python3 /opt/OSMstream/benchmark.py -n 1000
 ```
 
 
-###Small Messages
+### Small Messages
 The small messages are inspired by MQTT.
 
 ![MQTT](img/publish_packet.png)
@@ -100,7 +100,7 @@ packetId TopicName qos retainFlag payload false
 5        door      5   True        7      False
 ```
 
-##Links
+## Links
 - http://wiki.openstreetmap.org/wiki/Overpass_API/Augmented_Diffs
 - http://wiki.openstreetmap.org/wiki/Planet.osm/diffs
 - http://wiki.openstreetmap.org/wiki/OsmChange
